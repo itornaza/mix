@@ -10,16 +10,43 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // Outlets
+    @IBOutlet weak var xylocaineVol: UILabel!
+    @IBOutlet weak var mixturePercentage: UITextField!
+    @IBOutlet weak var dextroseVolume: UITextField!
+    @IBOutlet weak var xylocaineFlaconVolume: UITextField!
+    @IBOutlet weak var numberOfFlacons: UILabel!
+    
+    // Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.calculateXylocaineVol()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // Actions
+    @IBAction func mixtureVolumeEC(_ sender: UITextField) {
+        self.calculateXylocaineVol()
     }
+    
+    @IBAction func dextroseVolumeEC(_ sender: UITextField) {
+        self.calculateXylocaineVol()
+    }
+    
+    @IBAction func xylocainFlaconVolumeEC(_ sender: UITextField) {
+        self.calculateXylocaineVol()
+    }
+    
+    // Helpers
+    func calculateXylocaineVol() {
+        let y = Double(self.mixturePercentage.text!)! / 100.0 // Convert to decimal
+        let z = Double(self.dextroseVolume.text!)! / 1000.0 // Convert to liters
+        
+        // TODO: Check for division by zero
+        let x = (((z * y) / (0.02 - y)) * 1000)
+        let xFlacon = x / Double(self.xylocaineFlaconVolume.text!)!
 
-
+        self.xylocaineVol.text = "\(Double(round(100 * x) / 100))"
+        self.numberOfFlacons.text = "\(Double(round(100 * xFlacon) / 100))"
+    }
 }
 
