@@ -76,9 +76,36 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.mixturePercentage.keyboardType = UIKeyboardType.numberPad
         self.dextroseVolume.keyboardType = UIKeyboardType.numberPad
         self.xylocaineFlaconVolume.keyboardType = UIKeyboardType.numberPad
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
-    /// TODO: Write the formula from notebook
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    /*
+                  |  lt | xylocaine(%) | xylocaine(lt)
+     -------------------------------------------------
+     xylocaine 2% | x   | 0.02         | 0.02 * x
+     dextrose     | z   | 0.0          | 0.0
+     mix          | x+z | y            | (x+z) * y
+     
+     
+     Solve for the third column,
+     
+          z(lt) * y(%)
+     x =  ------------ * 1000(ml)
+          0.02 - y(%)
+     
+     or,
+     
+                         dextrose(lt) * mix(%)
+     xylocaineVol(ml) =  --------------------- * 1000(ml)
+                         xylocaine(%) - mix(%)
+     
+     */
     func calculateXylocaineVol() {
         
         // Prepare variables
@@ -117,12 +144,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let components = string.components(separatedBy: inverseSet)
         let filtered = components.joined(separator: "")
         return string == filtered
-    }
-    
-    // Dismiss keyboard
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true);
-        return false;
     }
 }
 
