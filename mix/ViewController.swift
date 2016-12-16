@@ -68,39 +68,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // Helpers
     //------------
     
-    func configure() {
-        
-        // UI
-        self.impossibleMix.isHidden = true
-        
-        // Gestures
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
-            target: self, action: #selector(UIInputViewController.dismissKeyboard)
-        )
-        view.addGestureRecognizer(tap)
-        
-        // Delegates
-        self.mixturePercentage.delegate = self
-        self.dextroseVolume.delegate = self
-        self.xylocaineFlaconVolume.delegate = self
-        
-        // Show the num pad
-        self.mixturePercentage.keyboardType = UIKeyboardType.numberPad
-        self.dextroseVolume.keyboardType = UIKeyboardType.numberPad
-        self.xylocaineFlaconVolume.keyboardType = UIKeyboardType.numberPad
-    }
-    
-    func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-    func clearResults() {
-        self.xylocaineVol.text = ""
-        self.numberOfFlacons.text = ""
-    }
-    
     /*
-                  |  lt | xylocaine(%) | xylocaine(lt)
+                  | lt  | xylocaine(%) | xylocaine(lt)
      -------------------------------------------------
      xylocaine 2% | x   | 0.02         | 0.02 * x
      dextrose     | z   | 0.0          | 0.0
@@ -121,29 +90,76 @@ class ViewController: UIViewController, UITextFieldDelegate {
      
      */
     func calculateXylocaineVol() {
-        
-        // Prepare variables
-        var x = 0.0
+        // Set up variables for calculations
         let y = Double("0." + self.mixturePercentage.text!)! // Convert to decimal
         let z = Double(self.dextroseVolume.text!)! / 1000.0 // Convert to liters
         
         // Calculate mix volume
         if y < 0.02 { // Caution! y = 0.02 will cause division by zero
-            x = (((z * y) / (0.02 - y)) * 1000) // x in ml
-            let xFlacon = x / Double(self.xylocaineFlaconVolume.text!)!
-            self.xylocaineVol.text = "\(Double(round(100 * x) / 100))"
-            self.numberOfFlacons.text = "\(Double(round(100 * xFlacon) / 100))"
+            
+            // Calculate xylocaine volume and number of flacons
+            let x = get_x(dextroseLiters: z, mixPercentage: y)
+            let flaconVolume = Double(self.xylocaineFlaconVolume.text!)!
+            let xFlacon = get_xFlacon(xylocaineVolume: x, flaconVolume: flaconVolume)
+            
+            // Display results
+            self.xylocaineVol.text = "\(x) ml"
+            self.numberOfFlacons.text = "\(xFlacon)"
+            
         } else {
             self.impossibleMix.isHidden = false
             self.clearResults()
         }
     }
     
-    // Get the input fromm the mixture decimal format and convert it to percentage
+    func get_x(dextroseLiters: Double, mixPercentage: Double) -> Double {
+        let z = dextroseLiters
+        let y = mixPercentage
+        let x = ((z * y) / (0.02 - y)) * 1000
+        return Double(round(100 * x) / 100)
+    }
+    
+    func get_xFlacon(xylocaineVolume: Double, flaconVolume: Double) -> Double {
+        let x = xylocaineVolume
+        let xFlacon = x / flaconVolume
+        return Double(round(100 * xFlacon) / 100)
+    }
+    
+    // Get the input from the mixture decimal format and convert it to percentage
     func getPercentage(decimalString: String) -> String{
         let doubleString = "." + decimalString
         let number = Double(doubleString)! * 100
         return "\(number)"
+    }
+    
+    func configure() {
+        // UI
+        self.impossibleMix.isHidden = true
+        
+        // Gestures
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self, action: #selector(UIInputViewController.dismissKeyboard)
+        )
+        view.addGestureRecognizer(tap)
+        
+        // Delegates
+        self.mixturePercentage.delegate = self
+        self.dextroseVolume.delegate = self
+        self.xylocaineFlaconVolume.delegate = self
+        
+        // Show the num pad
+        self.mixturePercentage.keyboardType = UIKeyboardType.numberPad
+        self.dextroseVolume.keyboardType = UIKeyboardType.numberPad
+        self.xylocaineFlaconVolume.keyboardType = UIKeyboardType.numberPad
+    }
+    
+    func clearResults() {
+        self.xylocaineVol.text = ""
+        self.numberOfFlacons.text = ""
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     //----------------------
