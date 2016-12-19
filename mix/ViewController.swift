@@ -106,6 +106,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             self.xylocaineVolume.text = "\(x) ml"
             self.displayResults(xylocaineVolume: x)
         } else {
+            self.impossibleMix.text! = "impossible mix, cannot exceed \(Double(self.xylocaineConcentration * 100))%"
             self.impossibleMix.isHidden = false
             self.clearResults()
         }
@@ -125,13 +126,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func displayResults(xylocaineVolume: Double) {
-        let xylocaineConcentration = "\(Int(self.xylocaineConcentration * 100))"
+        let xylocaineConcentration = "\(Double(self.xylocaineConcentration * 100))"
         let dextroseVolume = self.dextroseVolume.text!
         let mixtureConcentration = self.mixturePercentage.text!
         let mixtureVolume = "\(Double(self.dextroseVolume.text!)! + xylocaineVolume)"
         
         self.resultTitle.text = "Lidocaine" + " \(xylocaineConcentration)" + "% volume:"
         
+        self.instructions.isHidden = false
         self.instructions.text = "Add " +
             "\(xylocaineVolume)" +
             "ml of " +
@@ -172,6 +174,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func clearResults() {
         self.xylocaineVolume.text = ""
+        self.instructions.text = ""
+        self.instructions.isHidden = true
     }
     
     func dismissKeyboard() {
