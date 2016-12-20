@@ -17,13 +17,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // Outlets
     //------------
     
-    @IBOutlet weak var mixturePercentage: UITextField!
+    @IBOutlet weak var xylocaineSelector: UISegmentedControl!
     @IBOutlet weak var dextroseVolume: UITextField!
     @IBOutlet weak var impossibleMix: UILabel!
-    @IBOutlet weak var xylocaineVolume: UILabel!
+    @IBOutlet weak var mixtrurePercentage: UITextField!
     @IBOutlet weak var resultTitle: UILabel!
+    @IBOutlet weak var xylocaineVolume: UILabel!
     @IBOutlet weak var instructions: UITextView!
-    @IBOutlet weak var xylocaineSelector: UISegmentedControl!
     
     //------------
     // Lifecycle
@@ -32,7 +32,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configure()
-        self.calculateXylocaineVol()
+        self.checkAndCalculate()
     }
     
     //------------
@@ -40,25 +40,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
     //------------
     
     @IBAction func mixturePerxentageEC(_ sender: UITextField) {
-        self.impossibleMix.isHidden = true
-        if !(self.mixturePercentage.text?.isEmpty)! {
-            self.calculateXylocaineVol()
-        } else {
-            self.clearResults()
-        }
+        self.checkAndCalculate()
     }
     
     @IBAction func dextroseVolumeEC(_ sender: UITextField) {
-        self.impossibleMix.isHidden = true
-        if !(self.dextroseVolume.text?.isEmpty)! {
-            self.calculateXylocaineVol()
-        } else {
-            self.clearResults()
-        }
+        self.checkAndCalculate()
     }
     
     @IBAction func xylocaineConcentration(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
+        self.getXylocaineConcentration(index: sender.selectedSegmentIndex)
+        self.checkAndCalculate()
+    }
+    
+    //------------
+    // Helpers
+    //------------
+    
+    // Get xylocaine concentration from the segment control
+    func getXylocaineConcentration(index: Int) {
+        switch index {
         case 0:
             self.xylocaineConcentration = 0.01
             break
@@ -66,17 +66,65 @@ class ViewController: UIViewController, UITextFieldDelegate {
             self.xylocaineConcentration = 0.02
             break
         }
-        self.calculateXylocaineVol()
     }
     
-    //------------
-    // Helpers
-    //------------
+    // Check if there is an empty or zero
+    func fieldsAreValid() -> Bool {
+        if (self.dextroseVolume.text?.isEmpty)! || (self.mixtrurePercentage.text?.isEmpty)! {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func checkAndCalculate() {
+        // Update the xylocaine percentage on the result title regardless of the checks
+        self.resultTitle.text = "Lidocaine " + "\(Double(self.xylocaineConcentration * 100))" + "%"
+        
+        // Reset the impossible mix each time
+        self.impossibleMix.isHidden = true
+        
+        // If all fields are valid proceed to calcutions
+        if self.fieldsAreValid() {
+            self.calculationWrapper()
+        } else {
+            self.clearResults()
+        }
+    }
+    
+    func calculationWrapper() {
+        // Set up variables for calculations, validation is already done so safely unwrap text fields
+        let y = Double(self.mixtrurePercentage.text!)! / 100 // Convert to decimal
+        let z = Double(self.dextroseVolume.text!)! / 1000.0 // Convert to liters
+        let w = self.xylocaineConcentration
+        
+        // Examine all passible values of input fields and calculate
+        if Double(self.dextroseVolume.text!) == 0.0 {
+            // Check if the dextrose volume is zero
+            self.instructions.text = "Hey, some water for injection to mix with?"
+            self.instructions.isHidden = false
+        } else if
+            // Check if the mixture percentage is zero
+            Double(self.mixtrurePercentage.text!) == 0.0 {
+            self.instructions.text = "Well, it seems that you do not need a mix for that"
+            self.instructions.isHidden = false
+        } else if y < w { // Caution! the xylocaine concentration value will cause division by zero
+            // Calculate xylocaine volume
+            let x = self.calculate(dextroseLiters: z, mixPercentage: y, xylocaineConcentration: w)
+            self.xylocaineVolume.text = "\(x) ml"
+            self.displayResults(xylocaineVolume: x)
+        } else {
+            // The final mix cannot have greater xylocaine concentration!
+            self.impossibleMix.text! = "impossible mix, cannot exceed \(Double(self.xylocaineConcentration * 100))%"
+            self.impossibleMix.isHidden = false
+            self.clearResults()
+        }
+    }
     
     /*
                   | lt  | xylocaine(%) | xylocaine(lt)
      -------------------------------------------------
-     xylocaine 2% | x   | w            | w * x
+     xylocaine w% | x   | w            | w * x
      dextrose     | z   | 0.0          | 0.0
      mix          | x+z | y            | (x+z) * y
      
@@ -94,31 +142,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
                          xylocaine(%) - mix(%)
      
      */
-    func calculateXylocaineVol() {
-        // Set up variables for calculations
-        let y = Double(self.mixturePercentage.text!)! / 100 // Convert to decimal
-        let z = Double(self.dextroseVolume.text!)! / 1000.0 // Convert to liters
-        let w = self.xylocaineConcentration
-        
-        // Calculate xylocaine volume
-        if y < w { // Caution! the xylocaine concentration value will cause division by zero
-            let x = get_x(dextroseLiters: z, mixPercentage: y, xylocaineConcentration: w)
-            self.xylocaineVolume.text = "\(x) ml"
-            self.displayResults(xylocaineVolume: x)
-        } else {
-            self.impossibleMix.text! = "impossible mix, cannot exceed \(Double(self.xylocaineConcentration * 100))%"
-            self.impossibleMix.isHidden = false
-            self.clearResults()
-        }
-    }
-    
-    func get_x(dextroseLiters: Double, mixPercentage: Double, xylocaineConcentration: Double) -> Double {
+    func calculate(dextroseLiters: Double, mixPercentage: Double, xylocaineConcentration: Double) -> Double {
         // Set up variables
         let z = dextroseLiters
         let y = mixPercentage
         let w = xylocaineConcentration
         
-        // Calculate
+        // Calculate x
         var x = ((z * y) / (w - y)) * 1000
         x = Double(round(100 * x) / 100)
         
@@ -126,13 +156,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func displayResults(xylocaineVolume: Double) {
+        // Prepare calculated variables
         let xylocaineConcentration = "\(Double(self.xylocaineConcentration * 100))"
         let dextroseVolume = self.dextroseVolume.text!
-        let mixtureConcentration = self.mixturePercentage.text!
+        let mixtureConcentration = self.mixtrurePercentage.text!
         let mixtureVolume = "\(Double(self.dextroseVolume.text!)! + xylocaineVolume)"
         
-        self.resultTitle.text = "Lidocaine" + " \(xylocaineConcentration)" + "% volume:"
-        
+        // Instructions
         self.instructions.isHidden = false
         self.instructions.text = "Add " +
             "\(xylocaineVolume)" +
@@ -164,11 +194,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         view.addGestureRecognizer(tap)
         
         // Delegates
-        self.mixturePercentage.delegate = self
+        self.mixtrurePercentage.delegate = self
         self.dextroseVolume.delegate = self
         
         // Show the num pad
-        self.mixturePercentage.keyboardType = UIKeyboardType.numbersAndPunctuation
+        self.mixtrurePercentage.keyboardType = UIKeyboardType.numbersAndPunctuation
         self.dextroseVolume.keyboardType = UIKeyboardType.numbersAndPunctuation
     }
     
@@ -178,6 +208,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.instructions.isHidden = true
     }
     
+    // Hide keyboard on tapping outside
     func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -186,13 +217,27 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // TextFieldDelegate
     //----------------------
     
-    // Allow decimal numbers only
+    // Allow decimal numbers only up to 5 digits
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // Test for decimal format
         let textFieldString = textField.text! as NSString
         let newString = textFieldString.replacingCharacters(in: range, with:string)
         let floatRegEx = "^([0-9]+)?(\\.([0-9]+)?)?$"
         let floatExPredicate = NSPredicate(format:"SELF MATCHES %@", floatRegEx)
-        return floatExPredicate.evaluate(with: newString)
+        let isDecimal: Bool = floatExPredicate.evaluate(with: newString)
+        
+        // Test for proper lenght
+        let maxNumberOfDigits = 5
+        let hasLenght: Bool = newString.characters.count <= maxNumberOfDigits
+        
+        // If both conditions hold return true
+        return isDecimal && hasLenght
     }
-}
+    
+    // Hide keyboard on pressing enter from the textfield
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 
+}
