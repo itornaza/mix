@@ -26,16 +26,16 @@ class mixTests: XCTestCase {
     }
     
     func test_get_x() {
-        var x = self.vc.get_x(dextroseLiters: 0.25, mixPercentage: 0.002, xylocaineConcentration: 0.02)
+        var x = self.vc.calculate(dextroseLiters: 0.25, mixPercentage: 0.002, xylocaineConcentration: 0.02)
         XCTAssert(x == 27.78)
         
-        x = self.vc.get_x(dextroseLiters: 0.25, mixPercentage: 0.001, xylocaineConcentration: 0.02)
+        x = self.vc.calculate(dextroseLiters: 0.25, mixPercentage: 0.001, xylocaineConcentration: 0.02)
         XCTAssert(x == 13.16)
         
-        x = self.vc.get_x(dextroseLiters: 0.25, mixPercentage: 0.02, xylocaineConcentration: 0.02)
+        x = self.vc.calculate(dextroseLiters: 0.25, mixPercentage: 0.02, xylocaineConcentration: 0.02)
         XCTAssert(x == Double.infinity)
         
-        x = self.vc.get_x(dextroseLiters: 0.25, mixPercentage: 0.021, xylocaineConcentration: 0.02)
+        x = self.vc.calculate(dextroseLiters: 0.25, mixPercentage: 0.021, xylocaineConcentration: 0.02)
         XCTAssert(x < 0)
     }
 }
