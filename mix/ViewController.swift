@@ -10,8 +10,18 @@ import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
-    // Global variables
+    //------------
+    // Globals
+    //------------
     var xylocaineConcentration: Double = 0.02 // Aligned with the default selection
+    let defaultXylocaineSelector: Int = 1
+    let defaultDextroseVolume = "250"
+    let defaultMixturePercentage = "0.5"
+    let resetDextroseVolume = "0"
+    let resetMixturePercentage = "0.0"
+    let xylocaineSelectorID = "xylocaine_selector"
+    let dextroseVolumeID = "dextrose_volume"
+    let mixturePercentageID = "mixture_percentage"
     
     //------------
     // Outlets
@@ -35,6 +45,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.checkAndCalculate()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        self.saveInput()
+    }
+    
     //------------
     // Actions
     //------------
@@ -49,6 +64,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func xylocaineConcentration(_ sender: UISegmentedControl) {
         self.getXylocaineConcentration(index: sender.selectedSegmentIndex)
+        self.checkAndCalculate()
+    }
+    
+    @IBAction func reset(_ sender: UIButton) {
+        self.xylocaineSelector.selectedSegmentIndex = 1
+        self.dextroseVolume.text = self.resetDextroseVolume
+        self.mixtrurePercentage.text = self.resetMixturePercentage
         self.checkAndCalculate()
     }
     
@@ -92,6 +114,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    /// Handles all calculations input values space and boundary cases for division by zero and impossible mixtures
+    /// with greater concentrations than the starting xylocaine solution
     func calculationWrapper() {
         // Set up variables for calculations, validation is already done so safely unwrap text fields
         let y = Double(self.mixtrurePercentage.text!)! / 100 // Convert to decimal
@@ -122,6 +146,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     /*
+     Mixture math behind the calculations:
+     
                   | lt  | xylocaine(%) | xylocaine(lt)
      -------------------------------------------------
      xylocaine w% | x   | w            | w * x
@@ -178,7 +204,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func configure() {
-        // UI
+        // UI set up
         self.impossibleMix.isHidden = true
         
         // Segmented control
@@ -200,6 +226,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Show the num pad
         self.mixtrurePercentage.keyboardType = UIKeyboardType.numbersAndPunctuation
         self.dextroseVolume.keyboardType = UIKeyboardType.numbersAndPunctuation
+        
+        // Load default values based on the last used inputs
+        self.initializeDefaults()
     }
     
     func clearResults() {
@@ -240,4 +269,43 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return true
     }
 
+    //----------------
+    // User Defaults
+    //----------------
+    
+    func initializeDefaults() {
+        if UserDefaults.standard.object(forKey: self.xylocaineSelectorID) == nil {
+            UserDefaults.standard.set(self.defaultXylocaineSelector, forKey: self.xylocaineSelectorID)
+            UserDefaults.standard.set(self.defaultDextroseVolume, forKey: self.dextroseVolumeID)
+            UserDefaults.standard.set(self.defaultMixturePercentage, forKey: self.mixturePercentageID)
+        } else {
+            self.restoreLastUsedValues()
+        }
+    }
+    
+    func saveInput() {
+        UserDefaults.standard.set(self.xylocaineSelector.selectedSegmentIndex, forKey: self.xylocaineSelectorID)
+        UserDefaults.standard.set(self.dextroseVolume.text, forKey: self.dextroseVolumeID)
+        UserDefaults.standard.set(self.mixtrurePercentage.text, forKey: self.mixturePercentageID)
+    }
+    
+    func restoreLastUsedValues() {
+        self.xylocaineSelector.selectedSegmentIndex = self.restoreXylocaineSelector()
+        self.dextroseVolume.text = self.restoreDextroseVolume()
+        self.mixtrurePercentage.text = self.restoreMixturePercentage()
+    }
+    
+    func restoreXylocaineSelector() -> Int {
+        return UserDefaults.standard.integer(forKey: self.xylocaineSelectorID)
+        
+    }
+    
+    func restoreDextroseVolume() -> String {
+        return UserDefaults.standard.string(forKey: self.dextroseVolumeID)!
+    }
+    
+    func restoreMixturePercentage() -> String{
+        return UserDefaults.standard.string(forKey: self.mixturePercentageID)!
+    }
+    
 }
