@@ -60,7 +60,7 @@
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="dextroseVolumeEC:" destination="BYZ-38-t0r" eventType="editingChanged" id="mck-Uu-eaF"/>
+                                                    <action selector="waterVolumeEC:" destination="BYZ-38-t0r" eventType="editingChanged" id="ONJ-Eb-YLu"/>
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ml" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ngd-Pb-B0s">
@@ -71,8 +71,8 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Impossible mix, cannot exceed 2%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="stB-H5-PGo">
-                                        <rect key="frame" x="28" y="140" width="273" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Impossible mix, cannot exceed 2%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="stB-H5-PGo">
+                                        <rect key="frame" x="28" y="141" width="294" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <color key="textColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -105,7 +105,7 @@
                                         </segments>
                                         <color key="tintColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <action selector="xylocaineConcentration:" destination="BYZ-38-t0r" eventType="valueChanged" id="hB9-j7-9rC"/>
+                                            <action selector="lidocaineConcentration:" destination="BYZ-38-t0r" eventType="valueChanged" id="7aV-JU-CvW"/>
                                         </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fqd-4G-UyN">
@@ -174,12 +174,13 @@
                                     <constraint firstAttribute="trailing" secondItem="fqd-4G-UyN" secondAttribute="trailing" constant="31" id="Jjc-Wa-kIj"/>
                                     <constraint firstItem="Po5-fl-BeV" firstAttribute="centerY" secondItem="iNi-gk-rRk" secondAttribute="centerY" constant="-2" id="SQX-Y4-JZa"/>
                                     <constraint firstAttribute="trailing" secondItem="qnN-aP-Pqr" secondAttribute="trailing" constant="31" id="Tku-lj-eBt"/>
+                                    <constraint firstAttribute="trailing" secondItem="stB-H5-PGo" secondAttribute="trailing" constant="31" id="VZX-Xv-9lN"/>
                                     <constraint firstItem="jP3-OJ-X9k" firstAttribute="leading" secondItem="iNi-gk-rRk" secondAttribute="leading" constant="28" id="WSA-Ag-JAL"/>
                                     <constraint firstItem="stB-H5-PGo" firstAttribute="leading" secondItem="iNi-gk-rRk" secondAttribute="leading" constant="28" id="WzY-PK-hHd"/>
                                     <constraint firstAttribute="trailing" secondItem="NzF-pq-l1c" secondAttribute="trailing" constant="31" id="YLd-hJ-TjW"/>
                                     <constraint firstItem="VoL-Hb-IXh" firstAttribute="leading" secondItem="iNi-gk-rRk" secondAttribute="leading" constant="28" id="YTa-ha-d3a"/>
                                     <constraint firstAttribute="height" constant="222" id="ZW4-uV-f9I"/>
-                                    <constraint firstItem="qcz-sb-ax4" firstAttribute="top" secondItem="stB-H5-PGo" secondAttribute="bottom" constant="0.5" id="luD-Ta-5gg"/>
+                                    <constraint firstItem="qcz-sb-ax4" firstAttribute="top" secondItem="stB-H5-PGo" secondAttribute="bottom" constant="-0.5" id="luD-Ta-5gg"/>
                                     <constraint firstAttribute="bottom" secondItem="fqd-4G-UyN" secondAttribute="bottom" constant="24" id="mo5-iD-XNu"/>
                                     <constraint firstAttribute="bottom" secondItem="jP3-OJ-X9k" secondAttribute="bottom" constant="24" id="qzw-8q-YJJ"/>
                                 </constraints>
@@ -249,13 +250,15 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="dextroseVolume" destination="vnl-Lw-vbe" id="146-df-PaS"/>
                         <outlet property="impossibleMix" destination="stB-H5-PGo" id="lH2-DS-4sq"/>
                         <outlet property="instructions" destination="paF-of-Q1M" id="UuB-eX-AnR"/>
+                        <outlet property="lidocaineConcentrationLabel" destination="d2o-Xu-ylt" id="1FB-Ii-raA"/>
+                        <outlet property="lidocaineSelector" destination="NzF-pq-l1c" id="nWf-3i-1R1"/>
+                        <outlet property="lidocaineVolume" destination="kj3-xr-4on" id="hVm-dg-PyB"/>
                         <outlet property="mixtrurePercentage" destination="Vxi-VU-UhX" id="CKd-8w-NUC"/>
                         <outlet property="resultTitle" destination="Knb-cy-RK3" id="cY0-tr-njb"/>
-                        <outlet property="xylocaineSelector" destination="NzF-pq-l1c" id="7Qq-Hv-gug"/>
-                        <outlet property="xylocaineVolume" destination="kj3-xr-4on" id="LNE-1V-LgK"/>
+                        <outlet property="waterLabel" destination="N2H-id-Xbg" id="IRU-2h-WDJ"/>
+                        <outlet property="waterVolume" destination="vnl-Lw-vbe" id="3fv-Tf-vJo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

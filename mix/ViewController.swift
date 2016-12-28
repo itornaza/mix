@@ -10,29 +10,48 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    //--------------------
+    // Class Properties
+    //--------------------
+    
+    enum lidocaineSolution: Int {
+        case onePerCent = 0, twoPerCent
+    }
+    
+    enum lidocaineConcentrationValue: Double {
+        case onePerCent = 0.01
+        case twoPerCent = 0.02
+    }
+    
     //------------
-    // Globals
+    // Properties
     //------------
-    var xylocaineConcentration: Double = 0.02 // Aligned with the default selection
-    let defaultXylocaineSelector: Int = 1
-    let defaultDextroseVolume = "250"
+    
+    var lidocaineConcentration: Double = 0.0
+    var impossibleMixPrefix = "Impossible mix, cannot exceed "
+    
+    // Constants
+    let defaultLidocaineSelector: Int = 1
+    let defaultWaterVolume = "250"
     let defaultMixturePercentage = "0.5"
-    let resetDextroseVolume = "0"
+    let resetWaterVolume = "0"
     let resetMixturePercentage = "0.0"
-    let xylocaineSelectorID = "xylocaine_selector"
-    let dextroseVolumeID = "dextrose_volume"
+    let lidocaineSelectorID = "lidocaine_selector"
+    let waterVolumeID = "water_volume"
     let mixturePercentageID = "mixture_percentage"
     
     //------------
     // Outlets
     //------------
     
-    @IBOutlet weak var xylocaineSelector: UISegmentedControl!
-    @IBOutlet weak var dextroseVolume: UITextField!
+    @IBOutlet weak var lidocaineSelector: UISegmentedControl!
+    @IBOutlet weak var waterLabel: UILabel!
+    @IBOutlet weak var waterVolume: UITextField!
     @IBOutlet weak var impossibleMix: UILabel!
     @IBOutlet weak var mixtrurePercentage: UITextField!
+    @IBOutlet weak var lidocaineConcentrationLabel: UILabel!
     @IBOutlet weak var resultTitle: UILabel!
-    @IBOutlet weak var xylocaineVolume: UILabel!
+    @IBOutlet weak var lidocaineVolume: UILabel!
     @IBOutlet weak var instructions: UITextView!
     
     //------------
@@ -58,18 +77,18 @@ class ViewController: UIViewController {
         self.checkAndCalculate()
     }
     
-    @IBAction func dextroseVolumeEC(_ sender: UITextField) {
+    @IBAction func waterVolumeEC(_ sender: UITextField) {
         self.checkAndCalculate()
     }
     
-    @IBAction func xylocaineConcentration(_ sender: UISegmentedControl) {
-        self.getXylocaineConcentration(index: sender.selectedSegmentIndex)
+    @IBAction func lidocaineConcentration(_ sender: UISegmentedControl) {
+        self.getLidocaineConcentration(index: sender.selectedSegmentIndex)
         self.checkAndCalculate()
     }
     
     @IBAction func reset(_ sender: UIButton) {
-        self.xylocaineSelector.selectedSegmentIndex = 1
-        self.dextroseVolume.text = self.resetDextroseVolume
+        self.lidocaineSelector.selectedSegmentIndex = 1
+        self.waterVolume.text = self.resetWaterVolume
         self.mixtrurePercentage.text = self.resetMixturePercentage
         self.clearResults()
     }
