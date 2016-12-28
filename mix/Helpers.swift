@@ -10,21 +10,21 @@ import UIKit
 
 extension ViewController {
     
-    // Get xylocaine concentration from the segment control
-    func getXylocaineConcentration(index: Int) {
+    // Get lidocaine concentration from the segment control
+    func getLidocaineConcentration(index: Int) {
         switch index {
-        case 0:
-            self.xylocaineConcentration = 0.01
+        case ViewController.lidocaineSolution.onePerCent.rawValue:
+            self.lidocaineConcentration = ViewController.lidocaineConcentrationValue.onePerCent.rawValue
             break
         default:
-            self.xylocaineConcentration = 0.02
+            self.lidocaineConcentration = ViewController.lidocaineConcentrationValue.twoPerCent.rawValue
             break
         }
     }
     
     // Check if there is an empty or zero
     func fieldsAreValid() -> Bool {
-        if (self.dextroseVolume.text?.isEmpty)! || (self.mixtrurePercentage.text?.isEmpty)! {
+        if (self.waterVolume.text?.isEmpty)! || (self.mixtrurePercentage.text?.isEmpty)! {
             return false
         } else {
             return true
@@ -32,8 +32,8 @@ extension ViewController {
     }
     
     func checkAndCalculate() {
-        // Update the xylocaine percentage on the result title regardless of the checks
-        self.resultTitle.text = "Lidocaine " + "\(Double(self.xylocaineConcentration * 100))" + "%"
+        // Update the lidocaine percentage on the result title regardless of the checks
+        self.resultTitle.text = "Lidocaine " + "\(Double(self.lidocaineConcentration * 100))" + "%"
         
         // Reset the impossible mix each time
         self.impossibleMix.isHidden = true
@@ -47,33 +47,33 @@ extension ViewController {
     }
     
     /// Handles all calculations input values space and boundary cases for division by zero and impossible mixtures
-    /// with greater concentrations than the starting xylocaine solution
+    /// with greater concentrations than the starting lidocaine solution
     func calculationWrapper() {
         // Set up variables for calculations, validation is already done so safely unwrap text fields
         let y = Double(self.mixtrurePercentage.text!)! / 100 // Convert to decimal
-        let z = Double(self.dextroseVolume.text!)! / 1000.0 // Convert to liters
-        let w = self.xylocaineConcentration
+        let z = Double(self.waterVolume.text!)! / 1000.0 // Convert to liters
+        let w = self.lidocaineConcentration
         
         // Examine all possible values of input fields and calculate
-        if Double(self.dextroseVolume.text!) == 0.0 && Double(self.mixtrurePercentage.text!) == 0.0 {
+        if Double(self.waterVolume.text!) == 0.0 && Double(self.mixtrurePercentage.text!) == 0.0 {
             // Both values are zero after a reset and off/on of the app
             self.clearResults()
-        } else if Double(self.dextroseVolume.text!) == 0.0 {
-            // Check if the dextrose volume is zero
+        } else if Double(self.waterVolume.text!) == 0.0 {
+            // Check if the water volume is zero
             self.instructions.text = "Hey, some water for injection to mix with?"
             self.instructions.isHidden = false
         } else if Double(self.mixtrurePercentage.text!) == 0.0 {
             // Check if the mixture percentage is zero
             self.instructions.text = "Well, it seems that you do not need a mix for that"
             self.instructions.isHidden = false
-        } else if y < w { // Caution! the xylocaine concentration value will cause division by zero
-            // Calculate xylocaine volume
-            let x = self.calculate(dextroseLiters: z, mixPercentage: y, xylocaineConcentration: w)
-            self.xylocaineVolume.text = "\(x) ml"
-            self.displayResults(xylocaineVolume: x)
+        } else if y < w { // Caution! the lidocaine concentration value will cause division by zero
+            // Calculate lidocaine volume
+            let x = self.calculate(waterLiters: z, mixPercentage: y, lidocaineConcentration: w)
+            self.lidocaineVolume.text = "\(x) ml"
+            self.displayResults(lidocaineVolume: x)
         } else {
-            // The final mix cannot have greater xylocaine concentration!
-            self.impossibleMix.text! = "impossible mix, cannot exceed \(Double(self.xylocaineConcentration * 100))%"
+            // The final mix cannot have greater lidocaine concentration!
+            self.impossibleMix.text! = self.impossibleMixPrefix + "\(Double(self.lidocaineConcentration * 100))%"
             self.impossibleMix.isHidden = false
             self.clearResults()
         }
@@ -82,31 +82,31 @@ extension ViewController {
     /*
      Mixture math behind the calculations:
      
-     | lt  | xylocaine(%) | xylocaine(lt)
+                  | lt  | lidocaine(%) | lidocaine(lt)
      -------------------------------------------------
-     xylocaine w% | x   | w            | w * x
-     dextrose     | z   | 0.0          | 0.0
+     lidocaine w% | x   | w            | w * x
+     water        | z   | 0.0          | 0.0
      mix          | x+z | y            | (x+z) * y
      
      
      Solve for the third column,
      
-     z(lt) * y(%)
+          z(lt) * y(%)
      x =  ------------ * 1000(ml)
-     w(%) - y(%)
+          w(%) - y(%)
      
      or,
      
-     dextrose(lt) * mix(%)
-     xylocaineVol(ml) =  --------------------- * 1000(ml)
-     xylocaine(%) - mix(%)
+                         water(lt) * mix(%)
+     lidocaineVol(ml) =  --------------------- * 1000(ml)
+                         lidocaine(%) - mix(%)
      
      */
-    func calculate(dextroseLiters: Double, mixPercentage: Double, xylocaineConcentration: Double) -> Double {
+    func calculate(waterLiters: Double, mixPercentage: Double, lidocaineConcentration: Double) -> Double {
         // Set up variables
-        let z = dextroseLiters
+        let z = waterLiters
         let y = mixPercentage
-        let w = xylocaineConcentration
+        let w = lidocaineConcentration
         
         // Calculate x
         var x = ((z * y) / (w - y)) * 1000
@@ -115,21 +115,21 @@ extension ViewController {
         return x
     }
     
-    func displayResults(xylocaineVolume: Double) {
+    func displayResults(lidocaineVolume: Double) {
         // Prepare calculated variables
-        let xylocaineConcentration = "\(Double(self.xylocaineConcentration * 100))"
-        let dextroseVolume = self.dextroseVolume.text!
+        let lidocaineConcentration = "\(Double(self.lidocaineConcentration * 100))"
+        let waterVolume = self.waterVolume.text!
         let mixtureConcentration = self.mixtrurePercentage.text!
-        let mixtureVolume = "\(Double(self.dextroseVolume.text!)! + xylocaineVolume)"
+        let mixtureVolume = "\(Double(self.waterVolume.text!)! + lidocaineVolume)"
         
         // Instructions
         self.instructions.isHidden = false
         self.instructions.text = "Add " +
-            "\(xylocaineVolume)" +
+            "\(lidocaineVolume)" +
             "ml of " +
-            "\(xylocaineConcentration)" +
+            "\(lidocaineConcentration)" +
             "% lidocaine concentrate into " +
-            "\(dextroseVolume)" +
+            "\(waterVolume)" +
             "ml of water for injection to get a lidocaine mixture of " +
             "\(mixtureConcentration)" +
             "% concentration and a total volume of " +
@@ -138,6 +138,9 @@ extension ViewController {
     }
     
     func configure() {
+        // Initialize variables
+        self.lidocaineConcentration = ViewController.lidocaineConcentrationValue.twoPerCent.rawValue
+        
         // UI set up
         self.impossibleMix.isHidden = true
         
@@ -155,18 +158,30 @@ extension ViewController {
         
         // Delegates
         self.mixtrurePercentage.delegate = self
-        self.dextroseVolume.delegate = self
+        self.waterVolume.delegate = self
         
         // Show the num pad
         self.mixtrurePercentage.keyboardType = UIKeyboardType.numbersAndPunctuation
-        self.dextroseVolume.keyboardType = UIKeyboardType.numbersAndPunctuation
+        self.waterVolume.keyboardType = UIKeyboardType.numbersAndPunctuation
         
         // Load default values based on the last used inputs
         self.initializeDefaults()
+        
+        // Adjust for small iPhones
+        self.configureSmallScreens()
+    }
+    
+    /// Configure the UI element's appearance for the small iPhones
+    func configureSmallScreens() {
+        if UIScreen.main.nativeBounds.width == 640.0 {
+            self.waterLabel.text = "Water"
+            self.lidocaineConcentrationLabel.text = "Concentration"
+            self.impossibleMixPrefix = "Cannot exceed "
+        }
     }
     
     func clearResults() {
-        self.xylocaineVolume.text = ""
+        self.lidocaineVolume.text = ""
         self.instructions.text = ""
         self.instructions.isHidden = true
     }

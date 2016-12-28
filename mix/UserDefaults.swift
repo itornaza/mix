@@ -11,9 +11,9 @@ import Foundation
 extension ViewController {
     
     func initializeDefaults() {
-        if UserDefaults.standard.object(forKey: self.xylocaineSelectorID) == nil {
-            UserDefaults.standard.set(self.defaultXylocaineSelector, forKey: self.xylocaineSelectorID)
-            UserDefaults.standard.set(self.defaultDextroseVolume, forKey: self.dextroseVolumeID)
+        if UserDefaults.standard.object(forKey: self.lidocaineSelectorID) == nil {
+            UserDefaults.standard.set(self.defaultLidocaineSelector, forKey: self.lidocaineSelectorID)
+            UserDefaults.standard.set(self.defaultWaterVolume, forKey: self.waterVolumeID)
             UserDefaults.standard.set(self.defaultMixturePercentage, forKey: self.mixturePercentageID)
         } else {
             self.restoreLastUsedValues()
@@ -21,24 +21,24 @@ extension ViewController {
     }
     
     func saveInput() {
-        UserDefaults.standard.set(self.xylocaineSelector.selectedSegmentIndex, forKey: self.xylocaineSelectorID)
-        UserDefaults.standard.set(self.dextroseVolume.text, forKey: self.dextroseVolumeID)
+        UserDefaults.standard.set(self.lidocaineSelector.selectedSegmentIndex, forKey: self.lidocaineSelectorID)
+        UserDefaults.standard.set(self.waterVolume.text, forKey: self.waterVolumeID)
         UserDefaults.standard.set(self.mixtrurePercentage.text, forKey: self.mixturePercentageID)
     }
     
     func restoreLastUsedValues() {
-        self.xylocaineSelector.selectedSegmentIndex = self.restoreXylocaineSelector()
-        self.dextroseVolume.text = self.restoreDextroseVolume()
+        self.lidocaineSelector.selectedSegmentIndex = self.restoreLidocaineSelector()
+        self.waterVolume.text = self.restoreWaterVolume()
         self.mixtrurePercentage.text = self.restoreMixturePercentage()
     }
     
-    func restoreXylocaineSelector() -> Int {
-        return UserDefaults.standard.integer(forKey: self.xylocaineSelectorID)
+    func restoreLidocaineSelector() -> Int {
+        return UserDefaults.standard.integer(forKey: self.lidocaineSelectorID)
         
     }
     
-    func restoreDextroseVolume() -> String {
-        return UserDefaults.standard.string(forKey: self.dextroseVolumeID)!
+    func restoreWaterVolume() -> String {
+        return UserDefaults.standard.string(forKey: self.waterVolumeID)!
     }
     
     func restoreMixturePercentage() -> String{
