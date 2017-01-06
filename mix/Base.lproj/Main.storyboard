@@ -53,6 +53,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="250" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vnl-Lw-vbe">
                                                 <rect key="frame" x="0.0" y="0.0" width="75" height="30"/>
                                                 <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="waterVolume"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="75" id="Jb4-KP-lmq"/>
                                                 </constraints>
@@ -114,6 +115,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.5" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vxi-VU-UhX">
                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
                                                 <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="mixtureConcentration"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="OVP-Zo-Igb"/>
                                                 </constraints>
@@ -207,6 +209,7 @@
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="result" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kj3-xr-4on">
                                         <rect key="frame" x="205" y="16.5" width="116" height="20.5"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="result"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="116" id="Dxh-Fb-G9J"/>
                                         </constraints>
