@@ -44,9 +44,9 @@ class mixUITests: XCTestCase {
         // Check results title is set appropriately
         app.buttons["Reset"].tap()
         app.buttons["1%"].tap()
-        XCTAssertNotNil(app.staticTexts["Lidocaine 1%"])
+        XCTAssertNotNil(app.staticTexts["Solution 1%"])
         app.buttons["2%"].tap()
-        XCTAssertNotNil(app.staticTexts["Lidocaine 2%"])
+        XCTAssertNotNil(app.staticTexts["Solution 2%"])
 
         app.textFields["waterVolume"].tap()
         app.textFields["waterVolume"].clearAndEnterText(text: "250")
