@@ -33,7 +33,7 @@ extension ViewController {
     
     func checkAndCalculate() {
         // Update the lidocaine percentage on the result title regardless of the checks
-        self.resultTitle.text = "Lidocaine " + "\(Double(self.lidocaineConcentration * 100))" + "%"
+        self.resultTitle.text = "Solution " + "\(Double(self.lidocaineConcentration * 100))" + "%"
         
         // Reset the impossible mix each time
         self.impossibleMix.isHidden = true
@@ -60,7 +60,7 @@ extension ViewController {
             self.clearResults()
         } else if Double(self.waterVolume.text!) == 0.0 {
             // Check if the water volume is zero
-            self.instructions.text = "Hey, some water for injection to mix with?"
+            self.instructions.text = "Hey, some water to mix with?"
             self.instructions.isHidden = false
         } else if Double(self.mixtrurePercentage.text!) == 0.0 {
             // Check if the mixture percentage is zero
@@ -128,9 +128,9 @@ extension ViewController {
             "\(lidocaineVolume)" +
             "ml of " +
             "\(lidocaineConcentration)" +
-            "% lidocaine concentrate into " +
+            "% solution concentrate into " +
             "\(waterVolume)" +
-            "ml of water for injection to get a lidocaine mixture of " +
+            "ml of water to get a mixture of " +
             "\(mixtureConcentration)" +
             "% concentration and a total volume of " +
             "\(mixtureVolume)" +
