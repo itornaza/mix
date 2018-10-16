@@ -68,8 +68,13 @@ extension XCUIElement {
         }
         
         self.tap()
-        let deleteString = stringValue.characters.map { _ in XCUIKeyboardKeyDelete }.joined(separator: "")
+        let deleteString = stringValue.map { _ in convertFromXCUIKeyboardKey(XCUIKeyboardKey.delete) }.joined(separator: "")
         self.typeText(deleteString)
         self.typeText(text)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromXCUIKeyboardKey(_ input: XCUIKeyboardKey) -> String {
+	return input.rawValue
 }

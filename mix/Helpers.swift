@@ -146,9 +146,9 @@ extension ViewController {
         
         // Segmented control
         let attr = NSDictionary(object: UIFont(
-            name: "HelveticaNeue-Bold", size: 17.0)!, forKey: NSFontAttributeName as NSCopying
+            name: "HelveticaNeue-Bold", size: 17.0)!, forKey: convertFromNSAttributedStringKey(NSAttributedString.Key.font) as NSCopying
         )
-        UISegmentedControl.appearance().setTitleTextAttributes(attr as [NSObject : AnyObject] , for: .normal)
+        UISegmentedControl.appearance().setTitleTextAttributes(attr as [NSObject : AnyObject] as [NSObject : AnyObject] as? [NSAttributedString.Key : Any] , for: .normal)
         
         // Gestures
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(
@@ -191,4 +191,9 @@ extension ViewController {
         view.endEditing(true)
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }
