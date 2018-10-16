@@ -21,7 +21,7 @@ extension ViewController: UITextFieldDelegate {
         
         // Test for proper lenght
         let maxNumberOfDigits = 5
-        let hasLenght: Bool = newString.characters.count <= maxNumberOfDigits
+        let hasLenght: Bool = newString.count <= maxNumberOfDigits
         
         // If both conditions hold return true
         return isDecimal && hasLenght
