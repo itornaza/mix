@@ -200,26 +200,26 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = polarbear.gr;
 				TargetAttributes = {
 					725250031E0087C400A8DC59 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = F7W6EMWXBQ;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 					};
 					7252501A1E0087C400A8DC59 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = AW5Q5AJB4L;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 725250031E0087C400A8DC59;
 					};
 					725250251E0087C400A8DC59 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = F7W6EMWXBQ;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 725250031E0087C400A8DC59;
 					};
@@ -227,7 +227,7 @@
 			};
 			buildConfigurationList = 72524FFF1E0087C400A8DC59 /* Build configuration list for PBXProject "mix" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -341,6 +341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -399,6 +400,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -456,7 +458,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = gr.polarbear.mix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -470,7 +472,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = gr.polarbear.mix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -485,7 +487,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = gr.polarbear.mixTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mix.app/mix";
 			};
 			name = Debug;
@@ -501,7 +503,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = gr.polarbear.mixTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mix.app/mix";
 			};
 			name = Release;
@@ -516,7 +518,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = gr.polarbear.mixUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = mix;
 			};
 			name = Debug;
@@ -531,7 +533,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = gr.polarbear.mixUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = mix;
 			};
 			name = Release;
