@@ -134,7 +134,7 @@ extension ViewController {
             "\(mixtureConcentration)" +
             "% concentration and a total volume of " +
             "\(mixtureVolume)" +
-        "ml"
+            "ml"
     }
     
     func configure() {
