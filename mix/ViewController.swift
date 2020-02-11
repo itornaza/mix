@@ -10,9 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    //---------------------------
     // MARK: - Class Properties
-    //---------------------------
     
     enum lidocaineSolution: Int {
         case onePerCent = 0, twoPerCent
@@ -23,9 +21,7 @@ class ViewController: UIViewController {
         case twoPerCent = 0.02
     }
     
-    //----------------------
     // MARK: - Properties
-    //----------------------
     
     var lidocaineConcentration: Double = 0.0
     var impossibleMixPrefix = "Impossible mix, cannot exceed "
@@ -40,9 +36,7 @@ class ViewController: UIViewController {
     let waterVolumeID = "water_volume"
     let mixturePercentageID = "mixture_percentage"
     
-    //--------------------
     // MARK: - Outlets
-    //--------------------
     
     @IBOutlet weak var lidocaineSelector: UISegmentedControl!
     @IBOutlet weak var waterLabel: UILabel!
@@ -54,9 +48,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var lidocaineVolume: UILabel!
     @IBOutlet weak var instructions: UITextView!
     
-    //--------------------
     // MARK: - Lifecycle
-    //--------------------
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,9 +61,7 @@ class ViewController: UIViewController {
         self.saveInput()
     }
     
-    //--------------------
     // MARK: - Actions
-    //--------------------
     
     @IBAction func mixturePerxentageEC(_ sender: UITextField) {
         self.checkAndCalculate()
