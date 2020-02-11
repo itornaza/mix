@@ -46,8 +46,10 @@ extension ViewController {
         }
     }
     
-    /// Handles all calculations input values space and boundary cases for division by zero and impossible mixtures
-    /// with greater concentrations than the starting lidocaine solution
+    /**
+     * Handles all calculations input values space and boundary cases for division by zero and impossible mixtures
+     * with greater concentrations than the starting lidocaine solution
+     */
     func calculationWrapper() {
         // Set up variables for calculations, validation is already done so safely unwrap text fields
         let y = Double(self.mixtrurePercentage.text!)! / 100 // Convert to decimal
@@ -101,7 +103,7 @@ extension ViewController {
      lidocaineVol(ml) =  --------------------- * 1000(ml)
                          lidocaine(%) - mix(%)
      
-     */
+    */
     func calculate(waterLiters: Double, mixPercentage: Double, lidocaineConcentration: Double) -> Double {
         // Set up variables
         let z = waterLiters
@@ -146,9 +148,11 @@ extension ViewController {
         
         // Segmented control
         let attr = NSDictionary(object: UIFont(
-            name: "HelveticaNeue-Bold", size: 17.0)!, forKey: convertFromNSAttributedStringKey(NSAttributedString.Key.font) as NSCopying
+            name: "HelveticaNeue-Bold", size: 17.0)!,
+            forKey: convertFromNSAttributedStringKey(NSAttributedString.Key.font) as NSCopying
         )
-        UISegmentedControl.appearance().setTitleTextAttributes(attr as [NSObject : AnyObject] as [NSObject : AnyObject] as? [NSAttributedString.Key : Any] , for: .normal)
+        UISegmentedControl.appearance().setTitleTextAttributes(
+          attr as [NSObject : AnyObject] as [NSObject : AnyObject] as? [NSAttributedString.Key : Any] , for: .normal)
         
         // Gestures
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(
@@ -193,7 +197,7 @@ extension ViewController {
     
 }
 
-// Helper function inserted by Swift 4.2 migrator.
+/// Helper function inserted by Swift 4.2 migrator
 fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
 	return input.rawValue
 }
