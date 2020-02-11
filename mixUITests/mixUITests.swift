@@ -69,6 +69,8 @@ extension XCUIElement {
         
         self.tap()
         let deleteString = stringValue.map { _ in convertFromXCUIKeyboardKey(XCUIKeyboardKey.delete) }.joined(separator: "")
+      
+        // In the Simulator, make sure 'Hardware -> Keyboard -> Connect hardware keyboard' is off
         self.typeText(deleteString)
         self.typeText(text)
     }
