@@ -186,8 +186,8 @@ extension ViewController {
         self.instructions.isHidden = true
     }
     
-    /// Hide keyboard on tapping outside. Hide on pressing enter is handled from the teetc view delegate
-    func dismissKeyboard() {
+    /// Hide keyboard on tapping outside. Hide on pressing enter is handled from the text view delegate
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
