@@ -71,7 +71,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Impossible mix, cannot exceed 2%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="stB-H5-PGo">
-                                        <rect key="frame" x="28" y="140.5" width="294" height="20.5"/>
+                                        <rect key="frame" x="28" y="140.5" width="274" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <color key="textColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -94,10 +94,7 @@
                                         </subviews>
                                     </stackView>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="NzF-pq-l1c">
-                                        <rect key="frame" x="222" y="39" width="100" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="vsH-TO-FAu"/>
-                                        </constraints>
+                                        <rect key="frame" x="245" y="39" width="77" height="32"/>
                                         <segments>
                                             <segment title="1%"/>
                                             <segment title="2%"/>
@@ -133,10 +130,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qnN-aP-Pqr">
-                                        <rect key="frame" x="276" y="3" width="46" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="46" id="NxI-78-REb"/>
-                                        </constraints>
+                                        <rect key="frame" x="281" y="3" width="41" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="Reset">
                                             <color key="titleColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -171,11 +165,13 @@
                                     <constraint firstItem="V0y-Qf-6Gu" firstAttribute="leading" secondItem="iNi-gk-rRk" secondAttribute="leading" constant="28" id="BSf-Lz-IkX"/>
                                     <constraint firstAttribute="trailing" secondItem="Po5-fl-BeV" secondAttribute="trailing" constant="31" id="Ewa-01-rdI"/>
                                     <constraint firstItem="NzF-pq-l1c" firstAttribute="top" secondItem="iNi-gk-rRk" secondAttribute="top" constant="39" id="F5E-pJ-G6u"/>
+                                    <constraint firstItem="NzF-pq-l1c" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VoL-Hb-IXh" secondAttribute="trailing" constant="8" symbolic="YES" id="HeD-eh-8iB"/>
                                     <constraint firstAttribute="trailing" secondItem="fqd-4G-UyN" secondAttribute="trailing" constant="31" id="Jjc-Wa-kIj"/>
                                     <constraint firstItem="Po5-fl-BeV" firstAttribute="centerY" secondItem="iNi-gk-rRk" secondAttribute="centerY" constant="-2" id="SQX-Y4-JZa"/>
                                     <constraint firstAttribute="trailing" secondItem="qnN-aP-Pqr" secondAttribute="trailing" constant="31" id="Tku-lj-eBt"/>
-                                    <constraint firstAttribute="trailing" secondItem="stB-H5-PGo" secondAttribute="trailing" constant="31" id="VZX-Xv-9lN"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="stB-H5-PGo" secondAttribute="trailing" constant="20" symbolic="YES" id="VZX-Xv-9lN"/>
                                     <constraint firstItem="jP3-OJ-X9k" firstAttribute="leading" secondItem="iNi-gk-rRk" secondAttribute="leading" constant="28" id="WSA-Ag-JAL"/>
+                                    <constraint firstItem="qnN-aP-Pqr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iNi-gk-rRk" secondAttribute="leading" constant="20" symbolic="YES" id="Wnl-w4-H8a"/>
                                     <constraint firstItem="stB-H5-PGo" firstAttribute="leading" secondItem="iNi-gk-rRk" secondAttribute="leading" constant="28" id="WzY-PK-hHd"/>
                                     <constraint firstAttribute="trailing" secondItem="NzF-pq-l1c" secondAttribute="trailing" constant="31" id="YLd-hJ-TjW"/>
                                     <constraint firstItem="VoL-Hb-IXh" firstAttribute="leading" secondItem="iNi-gk-rRk" secondAttribute="leading" constant="28" id="YTa-ha-d3a"/>
@@ -206,11 +202,8 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="result" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kj3-xr-4on">
-                                        <rect key="frame" x="205" y="16.5" width="116" height="20.5"/>
+                                        <rect key="frame" x="273.5" y="16.5" width="47.5" height="20.5"/>
                                         <accessibility key="accessibilityConfiguration" identifier="result"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="116" id="Dxh-Fb-G9J"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -223,6 +216,7 @@
                                     <constraint firstAttribute="height" constant="61" id="hA6-Ws-paR"/>
                                     <constraint firstItem="kj3-xr-4on" firstAttribute="centerY" secondItem="O1a-KD-dqd" secondAttribute="centerY" constant="-4" id="oUG-iV-tPv"/>
                                     <constraint firstAttribute="trailing" secondItem="kj3-xr-4on" secondAttribute="trailing" constant="32" id="onu-Vh-7FK"/>
+                                    <constraint firstItem="kj3-xr-4on" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EII-zJ-F2Y" secondAttribute="trailing" constant="8" symbolic="YES" id="pYc-q8-fZZ"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Instructions" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="paF-of-Q1M">
