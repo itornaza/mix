@@ -43,7 +43,6 @@ class mixUITests: XCTestCase {
         app.textFields["mixtureConcentration"].tap()
         app.textFields["mixtureConcentration"].clearAndEnterText(text: "0.5")
     }
-    
 }
 
 extension XCUIElement {
