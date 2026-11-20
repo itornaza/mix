@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  mix
 //
-//  Created by Ioannis Tornazakis on 13/12/16.
+//  Created by ion- on 13/12/16.
 //  Copyright © 2016 polarbear.gr. All rights reserved.
 //
 
